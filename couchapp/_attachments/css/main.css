@@ -8,6 +8,16 @@ textarea {
   background-color: transparent;
   resize: none;
 }
+select {
+  width: 100%;
+  background: rgb(24, 26, 27) none repeat scroll 0% 0%;
+  color: white;
+  border-width: 1px medium;
+  border-style: solid none;
+  border-color: white rgb(170, 170, 170);
+  font-size: 1.2em;
+}
+
 .json-diff-input {
   width: 50%;
   height: calc(100% - 48px);
