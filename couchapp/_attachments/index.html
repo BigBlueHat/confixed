@@ -32,18 +32,20 @@
       </div>
     </header>
     <div class="json-diff-input">
+      <h4>{{doc_ids.length}} docs in conflict</h4>
       <select v-model="current" v-on:change="current_rev = ''">
-        <option disabled selected>{{doc_ids.length}} docs in conflict</option>
         <option v-for="id in doc_ids">{{id}}</option>
       </select>
 
       <textarea id="json-diff-left"></textarea>
     </div>
     <div class="json-diff-input">
-      <select v-model="current_rev">
-        <option disabled selected>{{conflicts[current].length}} conflicts found</option>
-        <option v-for="rev in conflicts[current]">{{rev}}</option>
-      </select>
+      <div v-if="current_conflict_count > 0">
+        <h4>{{current_conflict_count}} conflicts found</h4>
+        <select v-model="current_rev">
+          <option v-for="rev in conflicts[current]">{{rev}}</option>
+        </select>
+      </div>
 
       <textarea id="json-diff-right"></textarea>
     </div>

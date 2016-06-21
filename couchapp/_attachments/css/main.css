@@ -17,6 +17,12 @@ select {
   border-color: white rgb(170, 170, 170);
   font-size: 1.2em;
 }
+h4 {
+  color: white;
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+}
 
 .json-diff-input {
   width: 50%;

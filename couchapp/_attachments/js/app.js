@@ -8,6 +8,13 @@ var app = new Vue({
     doc_ids: [],
     conflicts: {}
   },
+  computed: {
+    current_conflict_count: function() {
+      if (this.current && this.current in this.conflicts) {
+        return this.conflicts[this.current].length;
+      }
+    }
+  },
   ready: function() {
     var self = this;
     this.$http.get('_view/conflicts')
@@ -17,7 +24,6 @@ var app = new Vue({
             self.doc_ids.push(row.id);
             self.conflicts[row.id] = row.value;
           });
-          self.$log();
         }
       })
       .catch(console.log.bind(console));
@@ -25,17 +31,30 @@ var app = new Vue({
   watch: {
     current: function(id) {
       var self = this;
-      this.$http.get('../../' + encodeURIComponent(id))
-        .then(function(resp) {
-          // pulled from json-diff
-          leftInputView.codemirror
-            .setValue(JSON.stringify(resp.data, null, "\t"));
-        })
-        .catch(console.log.bind(console));
+      if (id) {
+        this.$http.get('../../' + encodeURIComponent(id))
+          .then(function(resp) {
+            // pulled from json-diff
+            leftInputView.codemirror
+              .setValue(JSON.stringify(resp.data, null, "\t"));
+          })
+          .catch(console.log.bind(console));
+      }
     },
     current_rev: function(rev) {
+      var self = this;
       if (rev === '') {
         rightInputView.codemirror.setValue('');
+      } else if (rev) {
+        this.$http.get('../../'
+            + encodeURIComponent(this.current)
+            + '?rev=' + rev)
+          .then(function(resp) {
+            // pulled from json-diff
+            rightInputView.codemirror
+              .setValue(JSON.stringify(resp.data, null, "\t"));
+          })
+          .catch(console.log.bind(console));
       }
       var self = this;
       this.$http.get('../../'
