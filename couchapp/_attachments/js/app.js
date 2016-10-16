@@ -49,6 +49,10 @@ var app = new Vue({
     }
   },
   methods: {
+    compare: function() {
+      // from json-diff
+      compareJson();
+    },
     resolve: function() {
       var self = this;
       var bulk = {

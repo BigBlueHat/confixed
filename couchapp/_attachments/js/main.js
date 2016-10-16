@@ -181,8 +181,8 @@
 
   var leftInputView = new JsonInputView(document.getElementById('json-diff-left'));
   var rightInputView = new JsonInputView(document.getElementById('json-diff-right'));
-  leftInputView.on('change', compareJson);
-  rightInputView.on('change', compareJson);
+//  leftInputView.on('change', compareJson);
+//  rightInputView.on('change', compareJson);
   leftInputView.codemirror.on('scroll', function () {
     var scrollInfo = leftInputView.codemirror.getScrollInfo();
     rightInputView.codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
@@ -227,6 +227,7 @@
     });
   }
 
+  window.compareJson = compareJson;
   window.leftInputView = leftInputView;
   window.rightInputView = rightInputView;
 })();
